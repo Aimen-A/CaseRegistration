@@ -1,0 +1,19 @@
+language: java
+
+jdk:
+  - openjdk11
+services:
+  - docker
+
+install: true
+
+on:
+  branch: slave
+
+script:
+  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn clean test     #Run Unit Test with Surefire plugin
+  #- mvn clean verify   #Run Integration Test with Failsafe plugin + JaCoCo Code Coverage is also attached to this phase
+
+  #after_success:
+  # bash merge_branch.sh
